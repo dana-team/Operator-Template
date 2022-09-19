@@ -1,0 +1,6 @@
+domain: dana.io
+layout:
+- go.kubebuilder.io/v3
+projectName: operator-template
+repo: Operator-Template
+version: "3"
