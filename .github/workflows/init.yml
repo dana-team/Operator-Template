@@ -1,0 +1,31 @@
+name: Init Project
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on: create
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    if: github.ref == 'refs/heads/main'
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+          check-latest: true
+      - name : Delete the go.mod file
+        run: rm -f go.mod
+      
+      - name: Run go mod
+        run: go mod init github.com/Dana-Team/${{ github.event.repository.name }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update go.mod file
